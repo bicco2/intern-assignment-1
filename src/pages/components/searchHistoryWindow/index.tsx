@@ -1,4 +1,39 @@
 import styled from 'styled-components';
+import { CachePut, CacheMatch } from '../../../apis/cacheHook';
+import { useState, useEffect } from 'react';
+
+type SearchDataList = {
+  name: string;
+  id: number;
+};
+
+export const SearchHistoryWindow = ({ word }: { word: string }) => {
+  const [data, setData] = useState<SearchDataList[]>();
+  console.log(word, 'ㅇㄹ');
+
+  async function getData() {
+    const res = await CachePut(word);
+    setData(res.splice(0, 7));
+  }
+
+  useEffect(() => {
+    getData();
+  }, [word]);
+
+  // CacheMatch();
+
+  return (
+    <SearchContainer>
+      <span>최근 검색어</span>
+      <ListContainer>
+        {data?.map((item) => (
+          <div key={item.id}>{item.name}</div>
+        ))}
+      </ListContainer>
+      <RecommendContainer>추천검색어 box</RecommendContainer>
+    </SearchContainer>
+  );
+};
 
 const SearchContainer = styled.div`
   display: flex;
@@ -19,21 +54,13 @@ const SearchContainer = styled.div`
 const ListContainer = styled.div`
   border-bottom: 1px solid grey;
   padding: 10px;
-  height: 100px;
+
+  & > div {
+    margin: 10px;
+  }
 `;
 
-// TODO:추천 검색어 >> 컴포넌트 분리
 const RecommendContainer = styled.div`
   height: 100px;
   padding: 10px;
 `;
-
-export const SearchHistoryWindow = () => {
-  return (
-    <SearchContainer>
-      <span>최근 검색어</span>
-      <ListContainer>saf</ListContainer>
-      <RecommendContainer>추천검색어 box</RecommendContainer>
-    </SearchContainer>
-  );
-};
