@@ -1,23 +1,7 @@
-import axios from 'axios';
+import Router from './Router';
 
 function App() {
-  const getAPITest = async () => {
-    try {
-      await axios
-        .get(`/api/v1/search-conditions/?name=갑상선`)
-        .then((response) => {
-          console.log(response.data);
-        });
-    } catch (error) {
-      console.error(error);
-    }
-  };
-  getAPITest();
-  return (
-    <>
-      <div>project start</div>
-    </>
-  );
+  return <Router />;
 }
 
 export default App;
