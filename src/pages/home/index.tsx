@@ -4,11 +4,18 @@ import { SearchHistoryWindow } from '../components/searchHistoryWindow';
 import searchImg2 from '../../assets/searchimg2.png';
 
 export default function Home() {
+  let timer: any;
   const [inputValue, setInputValue] = useState('');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-    setInputValue(newValue);
+
+    if (timer) {
+      clearTimeout(timer);
+    }
+    timer = setTimeout(function () {
+      setInputValue(newValue);
+    }, 300);
   };
 
   return (
@@ -20,15 +27,14 @@ export default function Home() {
       <SearchFrame>
         <input
           type="text"
-          value={inputValue}
           placeholder="질환명을 입력해주세요."
-          onChange={handleChange}
+          onInput={handleChange}
         />
         <button>
           <img src={searchImg2} alt="searchbar" />
         </button>
       </SearchFrame>
-
+      {}
       <SearchHistoryWindow word={inputValue ? inputValue : ''} />
     </Wrapper>
   );

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { CachePut, CacheMatch } from '../../../apis/cacheHook';
+import { CachePut } from '../../../apis/cacheHook';
 import { useState, useEffect } from 'react';
 
 type SearchDataList = {
@@ -9,18 +9,20 @@ type SearchDataList = {
 
 export const SearchHistoryWindow = ({ word }: { word: string }) => {
   const [data, setData] = useState<SearchDataList[]>();
-  console.log(word, 'ㅇㄹ');
 
   async function getData() {
     const res = await CachePut(word);
-    setData(res.splice(0, 7));
+    if (res == undefined) {
+      setData([]);
+    } else {
+      setData(res.splice(0, 7));
+    }
   }
 
   useEffect(() => {
     getData();
+    console.log(word, 'word');
   }, [word]);
-
-  // CacheMatch();
 
   return (
     <SearchContainer>
