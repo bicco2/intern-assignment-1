@@ -26,13 +26,22 @@ export const SearchHistoryWindow = ({ word }: { word: string }) => {
 
   return (
     <SearchContainer>
-      <span>최근 검색어</span>
-      <ListContainer>
-        {data?.map((item) => (
-          <div key={item.id}>{item.name}</div>
-        ))}
-      </ListContainer>
-      <RecommendContainer>추천검색어 box</RecommendContainer>
+      {word ? (
+        <>
+          <span>추천검색어</span>
+          <ListContainer>
+            {data?.map((item) => (
+              <div key={item.id}>{item.name}</div>
+            ))}
+          </ListContainer>
+        </>
+      ) : (
+        <>
+          <span>최근 검색어</span>
+          <ListContainer>asdf</ListContainer>
+          <RecommendContainer>추천검색어로 검색해보세요.</RecommendContainer>
+        </>
+      )}
     </SearchContainer>
   );
 };
@@ -65,4 +74,12 @@ const ListContainer = styled.div`
 const RecommendContainer = styled.div`
   height: 100px;
   padding: 10px;
+`;
+
+const NotSearchWordContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+  height: 300px;
 `;
