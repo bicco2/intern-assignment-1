@@ -1,7 +1,7 @@
 export const CachePut = async (word: string) => {
   console.log(word, 'hooks word');
   const URL = `/api/v1/search-conditions/?name=${word}`;
-  const cacheStorage = await caches.open('test');
+  const cacheStorage = await caches.open('search');
   if (word != '') {
     const cacheData = await cacheStorage.match(URL);
     if (cacheData) {
@@ -19,16 +19,3 @@ export const CachePut = async (word: string) => {
     return [];
   }
 };
-
-// export const CacheMatch = async () => {
-//   const URL = '/api/v1/search-conditions/?name=갑상선';
-//   const cacheStorage = await caches.open('test');
-//   const cacheData = await cacheStorage.match(URL);
-
-//   console.log(
-//     cacheData?.json().then((data) => {
-//       console.log(data, 'match 후 데이터');
-//     }),
-//     'test111',
-//   );
-// };

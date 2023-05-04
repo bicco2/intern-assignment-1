@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 
 import { CachePut } from '../../../apis/cacheHook';
+import { useCheckExpireCache } from '../../../apis/useCheckExpireCache';
 import useDebounce from '../../../hooks/useDebounce';
 import { SearchData } from '../../../types/global';
 
@@ -19,6 +20,8 @@ export const SearchWindow = ({ word }: { word: string }) => {
       setData(res.splice(0, 7));
     }
   }
+
+  useCheckExpireCache();
 
   useEffect(() => {
     getSearchData();
