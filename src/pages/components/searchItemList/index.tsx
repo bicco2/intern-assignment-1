@@ -1,13 +1,24 @@
 import styled from 'styled-components';
-import { TSearchDataList } from '../../../types/global';
+import { TSearchDataList, SearchData } from '../../../types/global';
+import useKeyboardNavigation from '../../../hooks/useKeyboardNavigation';
+import SuggestedKeywordsList from '../suggestedKeywordsList';
 
 export default function SearchItemList({ searchDataList }: TSearchDataList) {
+  const { selectedIndex, setSelectedIndex } = useKeyboardNavigation(
+    searchDataList.length,
+  );
   return (
     <>
       <span>추천검색어</span>
       <ListContainer>
-        {searchDataList?.map((item) => (
-          <div key={item.id}>{item.name}</div>
+        {searchDataList?.map((keyword: SearchData, index: number) => (
+          <SuggestedKeywordsList
+            key={keyword?.id}
+            keyword={keyword?.name}
+            isSelected={index === selectedIndex}
+            handleMouseEnter={() => setSelectedIndex(index)}
+            setSelectedIndex={setSelectedIndex}
+          />
         ))}
       </ListContainer>
     </>

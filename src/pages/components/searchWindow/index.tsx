@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { useState, useEffect } from 'react';
 
 import { CachePut } from '../../../apis/cacheHook';
-import { useCheckExpireCache } from '../../../apis/useCheckExpireCache';
+import { useCheckExpireCache } from '../../../hooks/useCheckExpireCache';
 import useDebounce from '../../../hooks/useDebounce';
 import { SearchData } from '../../../types/global';
 
