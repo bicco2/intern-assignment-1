@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { CachePut } from '../../../apis/cacheHook';
 import { useState, useEffect } from 'react';
+import useDebounce from '../../../hooks/useDebounce';
 
 type SearchDataList = {
   name: string;
@@ -9,9 +10,10 @@ type SearchDataList = {
 
 export const SearchHistoryWindow = ({ word }: { word: string }) => {
   const [data, setData] = useState<SearchDataList[]>();
+  const debounceWord = useDebounce(word);
 
   async function getData() {
-    const res = await CachePut(word);
+    const res = await CachePut(debounceWord);
     if (res == undefined) {
       setData([]);
     } else {
@@ -21,8 +23,8 @@ export const SearchHistoryWindow = ({ word }: { word: string }) => {
 
   useEffect(() => {
     getData();
-    console.log(word, 'word');
-  }, [word]);
+    console.log(debounceWord, 'word');
+  }, [debounceWord]);
 
   return (
     <SearchContainer>

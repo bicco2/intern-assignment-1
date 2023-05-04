@@ -4,19 +4,12 @@ import { SearchHistoryWindow } from '../components/searchHistoryWindow';
 import searchImg2 from '../../assets/searchimg2.png';
 
 export default function Home() {
-  let timer: any;
   const [inputValue, setInputValue] = useState('');
   const [searchList, setSearchList] = useState<string[]>([]);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const newValue = e.target.value;
-
-    if (timer) {
-      clearTimeout(timer);
-    }
-    timer = setTimeout(function () {
-      setInputValue(newValue);
-    }, 300);
+    setInputValue(newValue);
   };
 
   return (
