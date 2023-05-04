@@ -1,6 +1,6 @@
 import { useState, ChangeEvent } from 'react';
 import { Wrapper, SearchFrame } from './styles';
-import { SearchHistoryWindow } from '../components/searchHistoryWindow';
+import { SearchWindow } from '../components/searchWindow';
 import searchImg2 from '../../assets/searchimg2.png';
 
 export default function Home() {
@@ -31,7 +31,7 @@ export default function Home() {
       {/* {searchList.map((item) => (
         <div key={item}>{item}</div>
       ))} */}
-      <SearchHistoryWindow word={inputValue ? inputValue : ''} />
+      <SearchWindow word={inputValue ? inputValue : ''} />
     </Wrapper>
   );
 }

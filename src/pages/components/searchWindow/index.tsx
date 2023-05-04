@@ -1,18 +1,17 @@
 import styled from 'styled-components';
-import { CachePut } from '../../../apis/cacheHook';
 import { useState, useEffect } from 'react';
+
+import { CachePut } from '../../../apis/cacheHook';
 import useDebounce from '../../../hooks/useDebounce';
+import { SearchData } from '../../../types/global';
 
-type SearchDataList = {
-  name: string;
-  id: number;
-};
+import SearchItemList from '../searchItemList';
 
-export const SearchHistoryWindow = ({ word }: { word: string }) => {
-  const [data, setData] = useState<SearchDataList[]>();
+export const SearchWindow = ({ word }: { word: string }) => {
+  const [data, setData] = useState<SearchData[]>([]);
   const debounceWord = useDebounce(word);
 
-  async function getData() {
+  async function getSearchData() {
     const res = await CachePut(debounceWord);
     if (res == undefined) {
       setData([]);
@@ -22,21 +21,14 @@ export const SearchHistoryWindow = ({ word }: { word: string }) => {
   }
 
   useEffect(() => {
-    getData();
+    getSearchData();
     console.log(debounceWord, 'word');
   }, [debounceWord]);
 
   return (
     <SearchContainer>
       {word ? (
-        <>
-          <span>추천검색어</span>
-          <ListContainer>
-            {data?.map((item) => (
-              <div key={item.id}>{item.name}</div>
-            ))}
-          </ListContainer>
-        </>
+        <SearchItemList searchDataList={data} />
       ) : (
         <>
           <span>최근 검색어</span>
@@ -61,8 +53,6 @@ const SearchContainer = styled.div`
     margin: 10px;
   }
 `;
-
-// list container >> 컴포넌트 분리
 
 const ListContainer = styled.div`
   border-bottom: 1px solid grey;
