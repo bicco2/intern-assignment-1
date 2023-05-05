@@ -70,11 +70,3 @@ const RecommendContainer = styled.div`
   height: 100px;
   padding: 10px;
 `;
-
-const NotSearchWordContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 30px;
-  height: 300px;
-`;

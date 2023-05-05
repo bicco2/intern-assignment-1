@@ -28,9 +28,6 @@ export default function Home() {
           <img src={searchImg2} alt="searchbar" />
         </button>
       </SearchFrame>
-      {/* {searchList.map((item) => (
-        <div key={item}>{item}</div>
-      ))} */}
       <SearchWindow word={inputValue ? inputValue : ''} />
     </Wrapper>
   );
